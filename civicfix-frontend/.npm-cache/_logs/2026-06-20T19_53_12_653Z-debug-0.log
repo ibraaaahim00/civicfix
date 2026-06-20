@@ -1,0 +1,232 @@
+0 verbose cli C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\npm\bin\npm-cli.js
+1 info using npm@11.12.1
+2 info using node@v24.15.0
+3 silly config load:file:C:\Program Files\nodejs\node_modules\npm\npmrc
+4 silly config load:file:C:\Users\ebrahim\OneDrive\Documents\New project\civicfix-frontend\.npmrc
+5 silly config load:file:C:\Users\ebrahim\.npmrc
+6 silly config load:file:C:\Users\ebrahim\AppData\Roaming\npm\etc\npmrc
+7 verbose title npm install jszip
+8 verbose argv "install" "--no-save" "jszip" "--cache" "C:\\Users\\ebrahim\\OneDrive\\Documents\\New project\\civicfix-frontend\\.npm-cache"
+9 verbose logfile logs-max:10 dir:C:\Users\ebrahim\OneDrive\Documents\New project\civicfix-frontend\.npm-cache\_logs\2026-06-20T19_53_12_653Z-
+10 verbose logfile C:\Users\ebrahim\OneDrive\Documents\New project\civicfix-frontend\.npm-cache\_logs\2026-06-20T19_53_12_653Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:4496293888 maxSize:1124073472 maxEntrySize:562036736
+13 silly idealTree buildDeps
+14 silly fetch manifest jszip@*
+15 silly packumentCache full:https://registry.npmjs.org/jszip cache-miss
+16 http fetch GET 200 https://registry.npmjs.org/jszip 609ms (cache miss)
+17 silly packumentCache full:https://registry.npmjs.org/jszip set size:undefined disposed:false
+18 silly placeDep ROOT jszip@3.10.1 OK for: civicfix-frontend@1.0.0 want: *
+19 silly fetch manifest lie@~3.3.0
+20 silly packumentCache full:https://registry.npmjs.org/lie cache-miss
+21 silly fetch manifest pako@~1.0.2
+22 silly packumentCache full:https://registry.npmjs.org/pako cache-miss
+23 silly fetch manifest setimmediate@^1.0.5
+24 silly packumentCache full:https://registry.npmjs.org/setimmediate cache-miss
+25 http fetch GET 200 https://registry.npmjs.org/lie 157ms (cache miss)
+26 silly packumentCache full:https://registry.npmjs.org/lie set size:undefined disposed:false
+27 silly fetch manifest readable-stream@~2.3.6
+28 silly packumentCache full:https://registry.npmjs.org/readable-stream cache-miss
+29 http fetch GET 200 https://registry.npmjs.org/readable-stream 209ms (cache miss)
+30 silly packumentCache full:https://registry.npmjs.org/readable-stream set size:undefined disposed:false
+31 http fetch GET 200 https://registry.npmjs.org/setimmediate 460ms (cache miss)
+32 silly packumentCache full:https://registry.npmjs.org/setimmediate set size:undefined disposed:false
+33 http fetch GET 200 https://registry.npmjs.org/pako 462ms (cache miss)
+34 silly packumentCache full:https://registry.npmjs.org/pako set size:undefined disposed:false
+35 silly placeDep ROOT lie@3.3.0 OK for: jszip@3.10.1 want: ~3.3.0
+36 silly placeDep ROOT pako@1.0.11 OK for: jszip@3.10.1 want: ~1.0.2
+37 silly placeDep ROOT readable-stream@2.3.8 OK for: jszip@3.10.1 want: ~2.3.6
+38 silly placeDep ROOT setimmediate@1.0.5 OK for: jszip@3.10.1 want: ^1.0.5
+39 silly fetch manifest immediate@~3.0.5
+40 silly packumentCache full:https://registry.npmjs.org/immediate cache-miss
+41 silly fetch manifest isarray@~1.0.0
+42 silly packumentCache full:https://registry.npmjs.org/isarray cache-miss
+43 silly fetch manifest inherits@~2.0.3
+44 silly packumentCache full:https://registry.npmjs.org/inherits cache-miss
+45 http fetch GET 200 https://registry.npmjs.org/immediate 455ms (cache miss)
+46 silly packumentCache full:https://registry.npmjs.org/immediate set size:undefined disposed:false
+47 silly fetch manifest safe-buffer@~5.1.1
+48 silly packumentCache full:https://registry.npmjs.org/safe-buffer cache-miss
+49 http fetch GET 200 https://registry.npmjs.org/inherits 458ms (cache miss)
+50 silly packumentCache full:https://registry.npmjs.org/inherits set size:undefined disposed:false
+51 silly fetch manifest core-util-is@~1.0.0
+52 silly packumentCache full:https://registry.npmjs.org/core-util-is cache-miss
+53 http fetch GET 200 https://registry.npmjs.org/safe-buffer 452ms (cache miss)
+54 silly packumentCache full:https://registry.npmjs.org/safe-buffer set size:undefined disposed:false
+55 silly fetch manifest string_decoder@~1.1.1
+56 silly packumentCache full:https://registry.npmjs.org/string_decoder cache-miss
+57 http fetch GET 200 https://registry.npmjs.org/isarray 911ms (cache miss)
+58 silly packumentCache full:https://registry.npmjs.org/isarray set size:undefined disposed:false
+59 silly fetch manifest util-deprecate@~1.0.1
+60 silly packumentCache full:https://registry.npmjs.org/util-deprecate cache-miss
+61 http fetch GET 200 https://registry.npmjs.org/core-util-is 454ms (cache miss)
+62 silly packumentCache full:https://registry.npmjs.org/core-util-is set size:undefined disposed:false
+63 silly fetch manifest process-nextick-args@~2.0.0
+64 silly packumentCache full:https://registry.npmjs.org/process-nextick-args cache-miss
+65 http fetch GET 200 https://registry.npmjs.org/process-nextick-args 204ms (cache miss)
+66 silly packumentCache full:https://registry.npmjs.org/process-nextick-args set size:undefined disposed:false
+67 http fetch GET 200 https://registry.npmjs.org/string_decoder 210ms (cache miss)
+68 silly packumentCache full:https://registry.npmjs.org/string_decoder set size:undefined disposed:false
+69 http fetch GET 200 https://registry.npmjs.org/util-deprecate 210ms (cache miss)
+70 silly packumentCache full:https://registry.npmjs.org/util-deprecate set size:undefined disposed:false
+71 silly placeDep ROOT immediate@3.0.6 OK for: lie@3.3.0 want: ~3.0.5
+72 silly placeDep ROOT core-util-is@1.0.3 OK for: readable-stream@2.3.8 want: ~1.0.0
+73 silly placeDep ROOT inherits@2.0.4 OK for: readable-stream@2.3.8 want: ~2.0.3
+74 silly placeDep ROOT isarray@1.0.0 OK for: readable-stream@2.3.8 want: ~1.0.0
+75 silly placeDep ROOT process-nextick-args@2.0.1 OK for: readable-stream@2.3.8 want: ~2.0.0
+76 silly placeDep ROOT safe-buffer@5.1.2 OK for: readable-stream@2.3.8 want: ~5.1.1
+77 silly placeDep ROOT string_decoder@1.1.1 OK for: readable-stream@2.3.8 want: ~1.1.1
+78 silly placeDep ROOT util-deprecate@1.0.2 OK for: readable-stream@2.3.8 want: ~1.0.1
+79 silly reify moves {}
+80 silly audit bulk request {
+80 silly audit   '@emnapi/core': [ '1.10.0' ],
+80 silly audit   '@emnapi/runtime': [ '1.10.0' ],
+80 silly audit   '@emnapi/wasi-threads': [ '1.2.1' ],
+80 silly audit   '@napi-rs/wasm-runtime': [ '1.1.5' ],
+80 silly audit   '@oxc-project/types': [ '0.133.0' ],
+80 silly audit   '@rolldown/binding-android-arm64': [ '1.0.3' ],
+80 silly audit   '@rolldown/binding-darwin-arm64': [ '1.0.3' ],
+80 silly audit   '@rolldown/binding-darwin-x64': [ '1.0.3' ],
+80 silly audit   '@rolldown/binding-freebsd-x64': [ '1.0.3' ],
+80 silly audit   '@rolldown/binding-linux-arm-gnueabihf': [ '1.0.3' ],
+80 silly audit   '@rolldown/binding-linux-arm64-gnu': [ '1.0.3' ],
+80 silly audit   '@rolldown/binding-linux-arm64-musl': [ '1.0.3' ],
+80 silly audit   '@rolldown/binding-linux-ppc64-gnu': [ '1.0.3' ],
+80 silly audit   '@rolldown/binding-linux-s390x-gnu': [ '1.0.3' ],
+80 silly audit   '@rolldown/binding-linux-x64-gnu': [ '1.0.3' ],
+80 silly audit   '@rolldown/binding-linux-x64-musl': [ '1.0.3' ],
+80 silly audit   '@rolldown/binding-openharmony-arm64': [ '1.0.3' ],
+80 silly audit   '@rolldown/binding-wasm32-wasi': [ '1.0.3' ],
+80 silly audit   '@rolldown/binding-win32-arm64-msvc': [ '1.0.3' ],
+80 silly audit   '@rolldown/binding-win32-x64-msvc': [ '1.0.3' ],
+80 silly audit   '@rolldown/pluginutils': [ '1.0.1' ],
+80 silly audit   '@tybys/wasm-util': [ '0.10.2' ],
+80 silly audit   '@vitejs/plugin-react': [ '6.0.2' ],
+80 silly audit   'agent-base': [ '6.0.2' ],
+80 silly audit   asynckit: [ '0.4.0' ],
+80 silly audit   axios: [ '1.18.0' ],
+80 silly audit   'call-bind-apply-helpers': [ '1.0.2' ],
+80 silly audit   'combined-stream': [ '1.0.8' ],
+80 silly audit   debug: [ '4.4.3' ],
+80 silly audit   'delayed-stream': [ '1.0.0' ],
+80 silly audit   'detect-libc': [ '2.1.2' ],
+80 silly audit   'dunder-proto': [ '1.0.1' ],
+80 silly audit   'es-define-property': [ '1.0.1' ],
+80 silly audit   'es-errors': [ '1.3.0' ],
+80 silly audit   'es-object-atoms': [ '1.1.2' ],
+80 silly audit   'es-set-tostringtag': [ '2.1.0' ],
+80 silly audit   fdir: [ '6.5.0' ],
+80 silly audit   'follow-redirects': [ '1.16.0' ],
+80 silly audit   'form-data': [ '4.0.6' ],
+80 silly audit   fsevents: [ '2.3.3' ],
+80 silly audit   'function-bind': [ '1.1.2' ],
+80 silly audit   'get-intrinsic': [ '1.3.0' ],
+80 silly audit   'get-proto': [ '1.0.1' ],
+80 silly audit   gopd: [ '1.2.0' ],
+80 silly audit   'has-symbols': [ '1.1.0' ],
+80 silly audit   'has-tostringtag': [ '1.0.2' ],
+80 silly audit   hasown: [ '2.0.4' ],
+80 silly audit   'https-proxy-agent': [ '5.0.1' ],
+80 silly audit   lightningcss: [ '1.32.0' ],
+80 silly audit   'lightningcss-android-arm64': [ '1.32.0' ],
+80 silly audit   'lightningcss-darwin-arm64': [ '1.32.0' ],
+80 silly audit   'lightningcss-darwin-x64': [ '1.32.0' ],
+80 silly audit   'lightningcss-freebsd-x64': [ '1.32.0' ],
+80 silly audit   'lightningcss-linux-arm-gnueabihf': [ '1.32.0' ],
+80 silly audit   'lightningcss-linux-arm64-gnu': [ '1.32.0' ],
+80 silly audit   'lightningcss-linux-arm64-musl': [ '1.32.0' ],
+80 silly audit   'lightningcss-linux-x64-gnu': [ '1.32.0' ],
+80 silly audit   'lightningcss-linux-x64-musl': [ '1.32.0' ],
+80 silly audit   'lightningcss-win32-arm64-msvc': [ '1.32.0' ],
+80 silly audit   'lightningcss-win32-x64-msvc': [ '1.32.0' ],
+80 silly audit   'math-intrinsics': [ '1.1.0' ],
+80 silly audit   'mime-db': [ '1.52.0' ],
+80 silly audit   'mime-types': [ '2.1.35' ],
+80 silly audit   ms: [ '2.1.3' ],
+80 silly audit   nanoid: [ '3.3.14' ],
+80 silly audit   picocolors: [ '1.1.1' ],
+80 silly audit   picomatch: [ '4.0.4' ],
+80 silly audit   postcss: [ '8.5.15' ],
+80 silly audit   'proxy-from-env': [ '2.1.0' ],
+80 silly audit   react: [ '19.2.7' ],
+80 silly audit   'react-dom': [ '19.2.7' ],
+80 silly audit   rolldown: [ '1.0.3' ],
+80 silly audit   scheduler: [ '0.27.0' ],
+80 silly audit   'source-map-js': [ '1.2.1' ],
+80 silly audit   tinyglobby: [ '0.2.17' ],
+80 silly audit   tslib: [ '2.8.1' ],
+80 silly audit   vite: [ '8.0.16' ],
+80 silly audit   jszip: [ '3.10.1' ],
+80 silly audit   lie: [ '3.3.0' ],
+80 silly audit   pako: [ '1.0.11' ],
+80 silly audit   'readable-stream': [ '2.3.8' ],
+80 silly audit   setimmediate: [ '1.0.5' ],
+80 silly audit   immediate: [ '3.0.6' ],
+80 silly audit   'core-util-is': [ '1.0.3' ],
+80 silly audit   inherits: [ '2.0.4' ],
+80 silly audit   isarray: [ '1.0.0' ],
+80 silly audit   'process-nextick-args': [ '2.0.1' ],
+80 silly audit   'safe-buffer': [ '5.1.2' ],
+80 silly audit   string_decoder: [ '1.1.1' ],
+80 silly audit   'util-deprecate': [ '1.0.2' ]
+80 silly audit }
+81 http cache util-deprecate@https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz 1ms (cache hit)
+82 http cache string_decoder@https://registry.npmjs.org/string_decoder/-/string_decoder-1.1.1.tgz 0ms (cache hit)
+83 http cache safe-buffer@https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.1.2.tgz 0ms (cache hit)
+84 http cache process-nextick-args@https://registry.npmjs.org/process-nextick-args/-/process-nextick-args-2.0.1.tgz 0ms (cache hit)
+85 http cache isarray@https://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz 0ms (cache hit)
+86 http cache inherits@https://registry.npmjs.org/inherits/-/inherits-2.0.4.tgz 0ms (cache hit)
+87 http cache core-util-is@https://registry.npmjs.org/core-util-is/-/core-util-is-1.0.3.tgz 0ms (cache hit)
+88 http cache immediate@https://registry.npmjs.org/immediate/-/immediate-3.0.6.tgz 0ms (cache hit)
+89 http cache setimmediate@https://registry.npmjs.org/setimmediate/-/setimmediate-1.0.5.tgz 0ms (cache hit)
+90 http cache readable-stream@https://registry.npmjs.org/readable-stream/-/readable-stream-2.3.8.tgz 0ms (cache hit)
+91 http cache pako@https://registry.npmjs.org/pako/-/pako-1.0.11.tgz 0ms (cache hit)
+92 http cache lie@https://registry.npmjs.org/lie/-/lie-3.3.0.tgz 0ms (cache hit)
+93 http cache jszip@https://registry.npmjs.org/jszip/-/jszip-3.10.1.tgz 0ms (cache hit)
+94 silly tarball no local data for util-deprecate@https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz. Extracting by manifest.
+95 silly tarball no local data for string_decoder@https://registry.npmjs.org/string_decoder/-/string_decoder-1.1.1.tgz. Extracting by manifest.
+96 silly tarball no local data for safe-buffer@https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.1.2.tgz. Extracting by manifest.
+97 silly tarball no local data for process-nextick-args@https://registry.npmjs.org/process-nextick-args/-/process-nextick-args-2.0.1.tgz. Extracting by manifest.
+98 silly tarball no local data for isarray@https://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz. Extracting by manifest.
+99 silly tarball no local data for inherits@https://registry.npmjs.org/inherits/-/inherits-2.0.4.tgz. Extracting by manifest.
+100 silly tarball no local data for core-util-is@https://registry.npmjs.org/core-util-is/-/core-util-is-1.0.3.tgz. Extracting by manifest.
+101 silly tarball no local data for immediate@https://registry.npmjs.org/immediate/-/immediate-3.0.6.tgz. Extracting by manifest.
+102 silly tarball no local data for setimmediate@https://registry.npmjs.org/setimmediate/-/setimmediate-1.0.5.tgz. Extracting by manifest.
+103 silly tarball no local data for readable-stream@https://registry.npmjs.org/readable-stream/-/readable-stream-2.3.8.tgz. Extracting by manifest.
+104 silly tarball no local data for pako@https://registry.npmjs.org/pako/-/pako-1.0.11.tgz. Extracting by manifest.
+105 silly tarball no local data for lie@https://registry.npmjs.org/lie/-/lie-3.3.0.tgz. Extracting by manifest.
+106 silly tarball no local data for jszip@https://registry.npmjs.org/jszip/-/jszip-3.10.1.tgz. Extracting by manifest.
+107 http fetch GET 200 https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz 157ms (cache miss)
+108 http fetch GET 200 https://registry.npmjs.org/string_decoder/-/string_decoder-1.1.1.tgz 158ms (cache miss)
+109 http fetch POST 200 https://registry.npmjs.org/-/npm/v1/security/advisories/bulk 276ms
+110 silly audit report {}
+111 http fetch GET 200 https://registry.npmjs.org/inherits/-/inherits-2.0.4.tgz 505ms (cache miss)
+112 http fetch GET 200 https://registry.npmjs.org/process-nextick-args/-/process-nextick-args-2.0.1.tgz 507ms (cache miss)
+113 http fetch GET 200 https://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz 565ms (cache miss)
+114 http fetch GET 200 https://registry.npmjs.org/immediate/-/immediate-3.0.6.tgz 566ms (cache miss)
+115 http fetch GET 200 https://registry.npmjs.org/setimmediate/-/setimmediate-1.0.5.tgz 638ms (cache miss)
+116 http fetch GET 200 https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.1.2.tgz 748ms (cache miss)
+117 http fetch GET 200 https://registry.npmjs.org/core-util-is/-/core-util-is-1.0.3.tgz 746ms (cache miss)
+118 http fetch GET 200 https://registry.npmjs.org/lie/-/lie-3.3.0.tgz 757ms (cache miss)
+119 http fetch GET 200 https://registry.npmjs.org/readable-stream/-/readable-stream-2.3.8.tgz 769ms (cache miss)
+120 http fetch GET 200 https://registry.npmjs.org/pako/-/pako-1.0.11.tgz 1357ms (cache miss)
+121 http fetch GET 200 https://registry.npmjs.org/jszip/-/jszip-3.10.1.tgz 1395ms (cache miss)
+122 silly ADD node_modules/util-deprecate
+123 silly ADD node_modules/string_decoder
+124 silly ADD node_modules/safe-buffer
+125 silly ADD node_modules/process-nextick-args
+126 silly ADD node_modules/isarray
+127 silly ADD node_modules/inherits
+128 silly ADD node_modules/core-util-is
+129 silly ADD node_modules/immediate
+130 silly ADD node_modules/setimmediate
+131 silly ADD node_modules/readable-stream
+132 silly ADD node_modules/pako
+133 silly ADD node_modules/lie
+134 silly ADD node_modules/jszip
+135 verbose cwd C:\Users\ebrahim\OneDrive\Documents\New project\civicfix-frontend
+136 verbose os Windows_NT 10.0.19045
+137 verbose node v24.15.0
+138 verbose npm  v11.12.1
+139 verbose exit 0
+140 info ok
