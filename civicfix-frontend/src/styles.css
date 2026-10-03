@@ -1,12 +1,29 @@
+:root {
+  --ink: #102528;
+  --muted: #60787c;
+  --line: #dbe5e7;
+  --surface: #ffffff;
+  --primary: #119c7f;
+  --primary-dark: #0d8069;
+  --navy: #102528;
+  --page: #f3f6f7;
+}
+
 * {
   box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  background: var(--page);
 }
 
 body {
   margin: 0;
   font-family: Tahoma, Arial, sans-serif;
-  background: #f3f6f7;
-  color: #122023;
+  background: var(--page);
+  color: var(--ink);
+  line-height: 1.5;
 }
 
 button,
@@ -27,7 +44,7 @@ button:disabled {
 
 .app {
   display: grid;
-  grid-template-columns: 280px 1fr;
+  grid-template-columns: 260px minmax(0, 1fr);
   min-height: 100vh;
 }
 
@@ -37,14 +54,26 @@ button:disabled {
   place-items: center;
   padding: 24px;
   background:
-    linear-gradient(rgba(12, 38, 42, 0.72), rgba(12, 38, 42, 0.72)),
-    url("https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80") center/cover;
+    radial-gradient(circle at 10% 15%, rgba(21, 184, 154, 0.5), transparent 32%),
+    linear-gradient(135deg, #102528 0%, #173e43 48%, #0d8069 140%);
+}
+
+.authShell::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 20% 10%, rgba(21, 184, 154, 0.22), transparent 35%);
 }
 
 .sidebar {
   background: #102528;
   color: white;
-  padding: 24px;
+  padding: 28px 18px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  box-shadow: 12px 0 32px rgba(16, 37, 40, 0.08);
 }
 
 .brand {
@@ -59,8 +88,8 @@ button:disabled {
   height: 48px;
   display: grid;
   place-items: center;
-  border-radius: 8px;
-  background: #16a085;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #18b99a, #0d8069);
   color: white;
   font-weight: 700;
 }
@@ -101,8 +130,10 @@ nav button.active {
 }
 
 .content {
-  padding: 28px;
+  padding: 34px clamp(18px, 4vw, 52px);
   min-width: 0;
+  max-width: 1500px;
+  width: 100%;
 }
 
 .topbar {
@@ -114,7 +145,18 @@ nav button.active {
 }
 
 .topbar h2 {
-  margin: 4px 0 0;
+  margin: 5px 0 0;
+  font-size: clamp(22px, 3vw, 32px);
+}
+
+.topbarActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.refreshButton {
+  white-space: nowrap;
 }
 
 .eyebrow,
@@ -141,20 +183,22 @@ nav button.active {
 .reportCard {
   background: white;
   border: 1px solid #dce6e8;
-  border-radius: 8px;
-  box-shadow: 0 10px 30px rgba(16, 37, 40, 0.06);
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(16, 37, 40, 0.06);
 }
 
 .panel {
-  padding: 22px;
+  padding: clamp(18px, 2.5vw, 28px);
 }
 
 .authPanel {
-  width: min(460px, 100%);
+  width: min(500px, 100%);
+  position: relative;
+  backdrop-filter: blur(8px);
 }
 
 .alert {
-  border-radius: 8px;
+  border-radius: 12px;
   margin-bottom: 16px;
   padding: 12px 14px;
   line-height: 1.6;
@@ -178,7 +222,7 @@ nav button.active {
   gap: 6px;
   padding: 6px;
   margin-bottom: 16px;
-  border-radius: 8px;
+  border-radius: 12px;
   background: #edf3f4;
 }
 
@@ -201,12 +245,25 @@ nav button.active {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 14px;
-  margin-bottom: 18px;
+  margin-bottom: 22px;
 }
 
 .stat {
-  padding: 18px;
+  padding: 20px;
   min-width: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat::after {
+  content: "";
+  position: absolute;
+  left: -20px;
+  bottom: -28px;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: rgba(17, 156, 127, 0.08);
 }
 
 .stat span {
@@ -295,6 +352,24 @@ textarea {
   padding: 12px;
   background: white;
   color: #102528;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 3px solid rgba(17, 156, 127, 0.14);
+  border-color: #119c7f;
+}
+
+[aria-invalid="true"] {
+  border-color: #dc3545;
+}
+
+.fieldError {
+  color: #c52525;
+  font-size: 12px;
+  line-height: 1.5;
 }
 
 textarea {
@@ -315,12 +390,13 @@ textarea {
 }
 
 .primary {
-  background: #119c7f;
+  background: var(--primary);
   color: white;
 }
 
 .primary:hover {
-  background: #0d8069;
+  background: var(--primary-dark);
+  transform: translateY(-1px);
 }
 
 .secondary {
@@ -342,6 +418,11 @@ textarea {
   background: #e8f5ff;
 }
 
+button:focus-visible {
+  outline: 3px solid rgba(13, 110, 253, 0.3);
+  outline-offset: 2px;
+}
+
 .tools,
 .detailsHeader,
 .actions {
@@ -349,6 +430,26 @@ textarea {
   justify-content: space-between;
   gap: 12px;
   align-items: center;
+  margin-bottom: 16px;
+}
+
+.tools h3,
+.detailsHeader h3,
+.panel h3 {
+  margin-top: 0;
+}
+
+.logoutButton {
+  margin-top: 18px;
+  color: #ffd4d4;
+}
+
+.logoutButton:hover {
+  background: rgba(220, 53, 69, 0.14);
+  border-color: rgba(220, 53, 69, 0.35);
+}
+
+.backButton {
   margin-bottom: 16px;
 }
 
@@ -385,6 +486,12 @@ textarea {
   padding: 16px;
   text-align: right;
   min-width: 0;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.reportCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(16, 37, 40, 0.1);
 }
 
 .reportCard strong,
@@ -472,6 +579,27 @@ textarea {
 
   .sidebar {
     position: static;
+    height: auto;
+    padding: 16px;
+  }
+
+  .brand {
+    margin-bottom: 14px;
+  }
+
+  nav {
+    display: flex;
+    overflow-x: auto;
+    padding-bottom: 3px;
+  }
+
+  nav button {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  .logoutButton {
+    margin-top: 0;
   }
 
   .content {
@@ -491,6 +619,15 @@ textarea {
   .actions {
     align-items: stretch;
     flex-direction: column;
+  }
+
+  .topbarActions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .refreshButton {
+    flex: 1;
   }
 
   .barRow {

@@ -2,6 +2,14 @@ import React, { useEffect, useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "./styles.css";
 import { authApi, reportsApi, statsApi, usersApi } from "./services/api";
+import {
+  hasErrors,
+  normalizeEmail,
+  validateLogin,
+  validateRegistration,
+  validateReport,
+  validateTechnician,
+} from "./utils/validation";
 
 const statusLabels = {
   new: "جديد",
@@ -64,6 +72,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const [notice, setNotice] = useState("");
+  const [reportErrors, setReportErrors] = useState({});
 
   useEffect(() => {
     if (!localStorage.getItem("token")) {
@@ -132,9 +141,15 @@ function App() {
 
   async function login(payload) {
     setErrorMsg("");
+    const values = { ...payload, email: normalizeEmail(payload.email) };
+    const errors = validateLogin(values);
+    if (hasErrors(errors)) {
+      setErrorMsg(Object.values(errors).join(" "));
+      return;
+    }
     setLoading(true);
     try {
-      const res = await authApi.login(payload);
+      const res = await authApi.login(values);
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
       afterAuth(res.data.user);
@@ -147,9 +162,15 @@ function App() {
 
   async function register(payload) {
     setErrorMsg("");
+    const values = { ...payload, email: normalizeEmail(payload.email), name: payload.name?.trim() };
+    const errors = validateRegistration(values);
+    if (hasErrors(errors)) {
+      setErrorMsg(Object.values(errors).join(" "));
+      return;
+    }
     setLoading(true);
     try {
-      const res = await authApi.register(payload);
+      const res = await authApi.register(values);
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
       afterAuth(res.data.user);
@@ -172,6 +193,8 @@ function App() {
     setReports([]);
     setTechnicians([]);
     setPage("dashboard");
+    setErrorMsg("");
+    setNotice("");
   }
 
   async function createReport(event) {
@@ -179,6 +202,13 @@ function App() {
     setErrorMsg("");
     setNotice("");
     const form = event.currentTarget;
+    const values = Object.fromEntries(new FormData(form).entries());
+    const errors = validateReport(values);
+    setReportErrors(errors);
+    if (hasErrors(errors)) {
+      setErrorMsg("راجع بيانات البلاغ قبل الإرسال");
+      return;
+    }
     setLoading(true);
     try {
       const res = await reportsApi.create(new FormData(form));
@@ -186,6 +216,7 @@ function App() {
       setSelectedReportId(res.data.data.id);
       setPage("details");
       setNotice("تم إرسال البلاغ واستلامه في النظام.");
+      setReportErrors({});
       form.reset();
       loadStats();
     } catch (error) {
@@ -203,6 +234,11 @@ function App() {
     const formData = new FormData(form);
     const payload = Object.fromEntries(formData.entries());
     payload.password_confirmation = payload.password;
+    const errors = validateTechnician(payload);
+    if (hasErrors(errors)) {
+      setErrorMsg(Object.values(errors).join(" "));
+      return;
+    }
 
     setLoading(true);
     try {
@@ -247,7 +283,9 @@ function App() {
   function openReport(id) {
     setSelectedReportId(id);
     setPage("details");
-    reportsApi.getById(id).then((res) => applyReportUpdate(res.data.data)).catch(() => {});
+    reportsApi.getById(id)
+      .then((res) => applyReportUpdate(res.data.data))
+      .catch((error) => setErrorMsg(errorMessage(error, "فشل تحميل تفاصيل البلاغ")));
   }
 
   if (!authChecked) {
@@ -263,6 +301,7 @@ function App() {
         onRegister={register}
         loading={loading}
         errorMsg={errorMsg}
+        onClear={() => { setErrorMsg(""); setNotice(""); }}
       />
     );
   }
@@ -278,15 +317,15 @@ function App() {
           </div>
         </div>
         <nav>
-          <button className={page === "dashboard" ? "active" : ""} onClick={() => setPage("dashboard")}>الرئيسية</button>
-          {currentUser.role === "citizen" && <button onClick={() => setPage("new")}>بلاغ جديد</button>}
-          {currentUser.role === "citizen" && <button onClick={() => setPage("my")}>بلاغاتي</button>}
-          {currentUser.role === "admin" && <button onClick={() => setPage("admin")}>لوحة المدير</button>}
-          {currentUser.role === "admin" && <button onClick={() => setPage("all")}>إدارة البلاغات</button>}
-          {currentUser.role === "admin" && <button onClick={() => setPage("technicians")}>الفنيون</button>}
-          {currentUser.role === "technician" && <button onClick={() => setPage("technician")}>مهامي</button>}
-          <button onClick={() => setPage("statistics")}>التقارير</button>
-          <button onClick={logout}>تسجيل الخروج</button>
+          <button type="button" aria-current={page === "dashboard" ? "page" : undefined} className={page === "dashboard" ? "active" : ""} onClick={() => setPage("dashboard")}>الرئيسية</button>
+          {currentUser.role === "citizen" && <button type="button" aria-current={page === "new" ? "page" : undefined} className={page === "new" ? "active" : ""} onClick={() => setPage("new")}>بلاغ جديد</button>}
+          {currentUser.role === "citizen" && <button type="button" aria-current={page === "my" ? "page" : undefined} className={page === "my" ? "active" : ""} onClick={() => setPage("my")}>بلاغاتي</button>}
+          {currentUser.role === "admin" && <button type="button" aria-current={page === "admin" ? "page" : undefined} className={page === "admin" ? "active" : ""} onClick={() => setPage("admin")}>لوحة المدير</button>}
+          {currentUser.role === "admin" && <button type="button" aria-current={page === "all" ? "page" : undefined} className={page === "all" ? "active" : ""} onClick={() => setPage("all")}>إدارة البلاغات</button>}
+          {currentUser.role === "admin" && <button type="button" aria-current={page === "technicians" ? "page" : undefined} className={page === "technicians" ? "active" : ""} onClick={() => setPage("technicians")}>الفنيون</button>}
+          {currentUser.role === "technician" && <button type="button" aria-current={page === "technician" ? "page" : undefined} className={page === "technician" ? "active" : ""} onClick={() => setPage("technician")}>مهامي</button>}
+          <button type="button" aria-current={page === "statistics" ? "page" : undefined} className={page === "statistics" ? "active" : ""} onClick={() => setPage("statistics")}>التقارير</button>
+          <button type="button" className="logoutButton" onClick={logout}>تسجيل الخروج</button>
         </nav>
       </aside>
 
@@ -296,15 +335,18 @@ function App() {
             <p className="eyebrow">مرحبا، {currentUser.name}</p>
             <h2>{pageTitle(page)}</h2>
           </div>
-          <div className="role">{roleLabels[currentUser.role] || currentUser.role}</div>
+          <div className="topbarActions">
+            <button type="button" className="secondary refreshButton" onClick={refreshWorkspace} disabled={loading}>تحديث البيانات</button>
+            <div className="role">{roleLabels[currentUser.role] || currentUser.role}</div>
+          </div>
         </header>
 
-        {errorMsg && <div className="alert danger">{errorMsg}</div>}
-        {notice && <div className="alert success">{notice}</div>}
+        {errorMsg && <div className="alert danger" role="alert">{errorMsg}</div>}
+        {notice && <div className="alert success" role="status">{notice}</div>}
         {loading && <p className="eyebrow">جاري التحميل...</p>}
 
         {page === "dashboard" && <Dashboard stats={stats} reports={reports} openReport={openReport} />}
-        {page === "new" && <CreateReport onSubmit={createReport} loading={loading} />}
+        {page === "new" && <CreateReport onSubmit={createReport} loading={loading} errors={reportErrors} />}
         {page === "my" && <ReportsList reports={reports} openReport={openReport} search={search} setSearch={setSearch} />}
         {page === "details" && selectedReport && (
           <ReportDetails
@@ -313,6 +355,7 @@ function App() {
             technicians={technicians}
             onChangeStatus={changeStatus}
             onAssign={assignTechnician}
+            onBack={() => setPage(currentUser.role === "citizen" ? "my" : "dashboard")}
           />
         )}
         {page === "admin" && <AdminDashboard stats={stats} reports={reports} technicians={technicians} openReport={openReport} />}
@@ -345,17 +388,24 @@ function pageTitle(page) {
   }[page] || "CivicFix";
 }
 
-function AuthScreen({ mode, setMode, onLogin, onRegister, loading, errorMsg }) {
+function AuthScreen({ mode, setMode, onLogin, onRegister, loading, errorMsg, onClear }) {
   const isRegister = mode === "register";
+  const [fieldErrors, setFieldErrors] = useState({});
+
+  function changeMode(nextMode) {
+    setFieldErrors({});
+    onClear();
+    setMode(nextMode);
+  }
 
   function handleSubmit(event) {
     event.preventDefault();
     const data = Object.fromEntries(new FormData(event.currentTarget).entries());
-    if (isRegister) {
-      onRegister({ ...data, password_confirmation: data.password });
-    } else {
-      onLogin(data);
-    }
+    const errors = isRegister ? validateRegistration(data) : validateLogin(data);
+    setFieldErrors(errors);
+    if (hasErrors(errors)) return;
+    if (isRegister) onRegister(data);
+    else onLogin(data);
   }
 
   return (
@@ -369,19 +419,30 @@ function AuthScreen({ mode, setMode, onLogin, onRegister, loading, errorMsg }) {
           </div>
         </div>
         <div className="segmented">
-          <button className={!isRegister ? "selected" : ""} onClick={() => setMode("login")}>دخول</button>
-          <button className={isRegister ? "selected" : ""} onClick={() => setMode("register")}>حساب مواطن</button>
+          <button type="button" className={!isRegister ? "selected" : ""} onClick={() => changeMode("login")}>دخول</button>
+          <button type="button" className={isRegister ? "selected" : ""} onClick={() => changeMode("register")}>حساب مواطن</button>
         </div>
         {errorMsg && <div className="alert danger">{errorMsg}</div>}
-        <form className="form authForm" onSubmit={handleSubmit}>
-          {isRegister && <label className="full">الاسم الكامل<input name="name" required placeholder="مثال: أحمد محمد" /></label>}
-          <label className="full">البريد الإلكتروني<input type="email" name="email" required placeholder="name@example.com" /></label>
-          <label className="full">كلمة المرور<input type="password" name="password" required minLength="8" placeholder="ثمانية أحرف على الأقل" /></label>
+        <form className="form authForm" onSubmit={handleSubmit} noValidate>
+          {isRegister && <Field label="الاسم الكامل" name="name" error={fieldErrors.name}><input name="name" required placeholder="مثال: أحمد محمد" /></Field>}
+          <Field label="البريد الإلكتروني" name="email" error={fieldErrors.email}><input type="email" name="email" required placeholder="name@example.com" /></Field>
+          <Field label="كلمة المرور" name="password" error={fieldErrors.password}><input type="password" name="password" required minLength="8" placeholder="ثمانية أحرف على الأقل" /></Field>
+          {isRegister && <Field label="تأكيد كلمة المرور" name="password_confirmation" error={fieldErrors.password_confirmation}><input type="password" name="password_confirmation" required minLength="8" placeholder="أعد كتابة كلمة المرور" /></Field>}
           <button className="primary full" disabled={loading}>{loading ? "جاري التنفيذ..." : isRegister ? "إنشاء حساب" : "دخول"}</button>
         </form>
         <p className="hint">حساب المدير الافتراضي بعد تشغيل الـ Seeder: admin@civicfix.local / Admin@12345</p>
       </section>
     </div>
+  );
+}
+
+function Field({ label, name, error, children }) {
+  return (
+    <label className="full">
+      {label}
+      {React.cloneElement(children, { "aria-invalid": Boolean(error), "aria-describedby": error ? `${name}-error` : undefined })}
+      {error && <small className="fieldError" id={`${name}-error`}>{error}</small>}
+    </label>
   );
 }
 
@@ -412,15 +473,15 @@ function StatsGrid({ stats }) {
   );
 }
 
-function CreateReport({ onSubmit, loading }) {
+function CreateReport({ onSubmit, loading, errors }) {
   return (
-    <form className="panel form" onSubmit={onSubmit}>
-      <label>عنوان البلاغ<input name="title" required placeholder="مثال: كشاف إنارة لا يعمل" /></label>
-      <label>التصنيف<select name="category" required>{Object.entries(categoryLabels).map(([key, label]) => <option key={key} value={key}>{label}</option>)}</select></label>
-      <label>الأولوية<select name="priority" defaultValue="medium"><option value="low">منخفضة</option><option value="medium">متوسطة</option><option value="high">عالية</option><option value="urgent">عاجلة</option></select></label>
-      <label>الموقع<input name="location" required placeholder="الحي، الشارع، علامة مميزة" /></label>
-      <label>صورة البلاغ<input name="image" type="file" accept="image/*" /></label>
-      <label className="full">الوصف<textarea name="description" required minLength="20" rows="5" placeholder="اكتب التفاصيل التي تساعد فريق التشغيل على التعامل مع البلاغ" /></label>
+    <form className="panel form" onSubmit={onSubmit} noValidate>
+      <Field label="عنوان البلاغ" name="title" error={errors.title}><input name="title" required placeholder="مثال: كشاف إنارة لا يعمل" /></Field>
+      <Field label="التصنيف" name="category" error={errors.category}><select name="category" required>{Object.entries(categoryLabels).map(([key, label]) => <option key={key} value={key}>{label}</option>)}</select></Field>
+      <Field label="الأولوية" name="priority" error={errors.priority}><select name="priority" defaultValue="medium"><option value="low">منخفضة</option><option value="medium">متوسطة</option><option value="high">عالية</option><option value="urgent">عاجلة</option></select></Field>
+      <Field label="الموقع" name="location" error={errors.location}><input name="location" required placeholder="الحي، الشارع، علامة مميزة" /></Field>
+      <Field label="صورة البلاغ" name="image" error={errors.image}><input name="image" type="file" accept="image/*" /></Field>
+      <Field label="الوصف" name="description" error={errors.description}><textarea name="description" required minLength="20" rows="5" placeholder="اكتب التفاصيل التي تساعد فريق التشغيل على التعامل مع البلاغ" /></Field>
       <button className="primary" disabled={loading}>{loading ? "جاري الإرسال..." : "إرسال البلاغ"}</button>
     </form>
   );
@@ -473,7 +534,7 @@ function ReportsTable({ reports, openReport }) {
   );
 }
 
-function ReportDetails({ report, currentUser, technicians, onChangeStatus, onAssign }) {
+function ReportDetails({ report, currentUser, technicians, onChangeStatus, onAssign, onBack }) {
   const canChangeStatus = currentUser.role === "admin" || currentUser.role === "technician";
   const canAssign = currentUser.role === "admin";
 
@@ -486,6 +547,7 @@ function ReportDetails({ report, currentUser, technicians, onChangeStatus, onAss
         </div>
         <StatusBadge value={report.status} />
       </div>
+          <button className="secondary backButton" type="button" onClick={onBack}>العودة للقائمة</button>
       <p>{report.description}</p>
       {report.image_url && <img className="reportImage" src={report.image_url} alt="صورة البلاغ" />}
       <div className="infoGrid">

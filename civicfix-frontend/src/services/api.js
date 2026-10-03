@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "http://127.0.0.1:8000/api",
+  baseURL: (import.meta.env.VITE_API_URL || "http://127.0.0.1:8001/api").replace(/\/$/, ""),
+  timeout: 15000,
   headers: {
     Accept: "application/json",
   },
@@ -36,9 +37,7 @@ export const authApi = {
 export const reportsApi = {
   list: (params) => api.get("/reports", { params }),
   create: (formData) =>
-      api.post("/reports", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      }),
+      api.post("/reports", formData),
   getById: (id) => api.get(`/reports/${id}`),
   update: (id, payload) => api.patch(`/reports/${id}`, payload),
   updateStatus: (id, payload) => api.patch(`/reports/${id}/status`, payload),

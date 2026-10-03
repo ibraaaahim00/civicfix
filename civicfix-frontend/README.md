@@ -1,26 +1,22 @@
 # CivicFix Frontend
 
-واجهة عربية RTL لمنصة إدارة البلاغات داخل مدينة أو كومباوند.
+واجهة React عربية باتجاه RTL لمنصة CivicFix.
 
 ## التشغيل
 
 ```bash
-pnpm install
-pnpm dev
+npm install
+npm run dev
 ```
 
-## بيانات الدخول التجريبية
+افتراضيًا تتصل الواجهة بـ:
 
-- مدير: `admin@civicfix.com` / `123456`
-- فني: `mahmoud@civicfix.com` / `123456`
-- مقيم: `ahmed@civicfix.com` / `123456`
+`http://127.0.0.1:8001/api`
 
-## الربط مع الباك إند
+لتغيير الرابط، انسخ `.env.example` إلى `.env` وعدّل `VITE_API_URL`.
 
-ملف الربط موجود في:
+## بناء نسخة الإنتاج
 
-`src/services/api.js`
-
-غير قيمة `VITE_API_URL` لاحقا إلى رابط الباك إند الحقيقي، أو اتركها على:
-
-`http://localhost:5000/api`
+```bash
+npm run build
+```

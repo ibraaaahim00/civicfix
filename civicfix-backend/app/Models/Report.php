@@ -82,6 +82,6 @@ class Report extends Model
             return null;
         }
 
-        return Storage::url($this->image_path);
+        return url(Storage::disk('public')->url($this->image_path));
     }
 }

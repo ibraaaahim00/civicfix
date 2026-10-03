@@ -1,0 +1,24 @@
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Dependencies and generated files
+**/node_modules/
+**/vendor/
+**/dist/
+**/public/build/
+civicfix-backend/civicfix-backend/
+**/storage/logs/*.log
+**/storage/framework/cache/*
+**/storage/framework/sessions/*
+**/storage/framework/views/*
+
+# IDE and OS files
+.idea/
+**/.idea/
+.vscode/
+*.log
+Thumbs.db
+.DS_Store
